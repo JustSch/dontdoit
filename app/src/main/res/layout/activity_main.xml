@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.justtherest.dontdoit.MainActivity">
+
+    <TextView
+        android:id="@+id/anAppTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remindEvery"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/remindEvery"
+        android:layout_marginTop="7dp"
+        android:text="@string/are_you_staying_focused"
+        android:textSize="30sp"
+        tools:textSize="42sp"
+        tools:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/remindEvery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remind_every"
+        tools:textSize="24sp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_alignBottom="@+id/timerNum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/timerNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/distractQ"
+        android:layout_toRightOf="@+id/remindEvery"
+        android:layout_toEndOf="@+id/remindEvery" />
+
+    <TextView
+        android:id="@+id/minText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/timerNum"
+        android:layout_toEndOf="@+id/timerNum"
+        android:layout_toRightOf="@+id/timerNum"
+        android:text="@string/min"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/setBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_timer"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/remindEvery"
+        android:layout_alignLeft="@+id/remindEvery"
+        android:layout_alignStart="@+id/remindEvery" />
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_timer"
+        android:layout_above="@+id/distaractedText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/stopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distaractedText"
+        android:layout_centerHorizontal="true"
+        android:text="@string/stop_timer" />
+
+    <TextView
+        android:id="@+id/remindText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/setBtn"
+        android:layout_alignStart="@+id/setBtn"
+        android:layout_below="@+id/setBtn"
+        android:layout_marginTop="24dp"
+        android:text="@string/reminding_in"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/distaractedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:text="@string/you_ve_been_distracted"
+        android:textSize="30sp"
+        android:layout_below="@+id/setBtn"
+        android:layout_alignLeft="@+id/setBtn"
+        android:layout_alignStart="@+id/setBtn" />
+
+    <TextView
+        android:id="@+id/distractQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/distaractedText"
+        android:layout_alignLeft="@+id/plusBtn"
+        android:layout_alignRight="@+id/distaractedText"
+        android:layout_alignStart="@+id/plusBtn"
+        android:layout_below="@+id/anAppTo"
+        android:layout_marginTop="9dp"
+        android:text="@string/how_often_do_you_get_distracted"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/mintext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/remindText"
+        android:layout_alignEnd="@+id/stopBtn"
+        android:layout_alignRight="@+id/stopBtn"
+        android:text="@string/min"
+        android:textSize="20sp" />
+
+</RelativeLayout>

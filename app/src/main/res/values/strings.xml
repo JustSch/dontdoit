@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DontDoIt</string>
+    <string name="an_app_to">An App to...</string>
+    <string name="remind_every">Every:</string>
+    <string name="plus">+</string>
+    <string name="you_ve_been_distracted">You\'ve been distracted:</string>
+    <string name="are_you_staying_focused">Are You Staying Focused?</string>
+    <string name="reset_timer">Reset Timer</string>
+    <string name="set_timer">Set Timer</string>
+    <string name="stop_timer">Stop Timer</string>
+    <string name="how_often_do_you_get_distracted">How often do you get distracted?</string>
+    <string name="min">Min</string>
+    <string name="reminding_in">Reminding In:</string>
+
+</resources>
