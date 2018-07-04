@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
- * Created on 8/14/2017.
+ * Created by Justin on 8/14/2017.
  */
 
 //May decide just to use service?
@@ -28,6 +28,8 @@ public class TimerReceiver extends BroadcastReceiver {
         notification_service_intent.putExtra("minute_left", min);
 
         notification_service_intent.putExtra("start time", startTime);
+
+
 
 
         context.startService(notification_service_intent);

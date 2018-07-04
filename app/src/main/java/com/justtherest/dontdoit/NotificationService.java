@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -14,14 +16,14 @@ import android.util.Log;
 import android.widget.EditText;
 
 /**
- * Created on 8/14/2017.
+ * Created by Justin on 8/14/2017. use https://developer.android.com/guide/topics/ui/notifiers/notifications.html
  */
 
 public class NotificationService extends Service {
     //TODO move alarm here, Also just say time the alarm will go off until figure out how countdown works
-    MediaPlayer mPlayer;
+    //MediaPlayer mPlayer;
 
-    int iD;
+    //int iD;
     int min;
 
 
@@ -39,6 +41,9 @@ public class NotificationService extends Service {
         final Integer min_left = intent.getExtras().getInt("minute_left");
         final Long startTime = intent.getExtras().getLong("start time");
 
+        Intent backIntent = new Intent(this, MainActivity.class);
+        PendingIntent backPendingIntent = PendingIntent.getActivity(this, 0, backIntent, 0);
+
 
         Handler handler = new Handler();
 
@@ -48,76 +53,47 @@ public class NotificationService extends Service {
         //Need Intent and pendingIntent stuff for notification!!!!! also heads up notification when done
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(0); // closes 1st notification when displaying second
         int notifyID = 1;
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
 
                 .setSmallIcon(R.mipmap.ic_launcher)  //change to something in drawable
-                .setOngoing(true)
-                .setContentTitle("Timer Notification")
-                .setContentText("Timer Set!");
+                //.setOngoing(true) //makes unremovable?
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setContentTitle("Are You Being Distracted?")
+                .setContentText("Should You Get Back To Work?")
+                .setContentIntent(backPendingIntent)
+                .addAction(R.mipmap.ic_launcher,"Yes",backPendingIntent)
+                .addAction(R.mipmap.ic_launcher,"No",backPendingIntent); //make drawable when you figure it out
 
+
+                // Look in set tap action section to cancel notification
                 //.setAutoCancel(true); //not sure if should be used. Look for something to cancel notification
+        notificationManager.notify(notifyID, mBuilder.build());
 
-        Intent backIntent = new Intent(this, MainActivity.class);
-        PendingIntent backPendingIntent = PendingIntent.getActivity(this, 0, backIntent, 0);
+
         //Move this
         playSound();
 
         int min = min_left;
-        //Retrieve minutes left in timer/alarm and
-        Runnable updateTask = new Runnable() {
-            @Override
-            public void run() {
-                updateNotification();
 
-
-                //handler.postDelayed(this, 60000); //takes too long
-            }
-        };
-
-
-        while (min >= 0) {
-
-            if (min == 0) {
-                notificationManager.cancel(notifyID); //might work?
-
-                Log.e("notification should", "close");
-
-                break;
-                //Log.e("if this displays","something is wrong");
-            }
-            //Logs value that is put in notification
-            Log.e("min in notification is", String.valueOf(min));
-
-
-            mBuilder.setContentText("Will check if you've been distracted in: " + min + " minutes");
-
-            //handler.postDelayed(updateTask, 60000); //takes too long
-            min--;
-        }
-
-        notificationManager.notify(notifyID, mBuilder.build());
+        notificationManager.notify(notifyID, mBuilder.build());  //displays notification/call as needed
         //TODO Add heads up notification when timer is done and yell at user if they get distracted
         //TODO Also Fix timer
 
 
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
-    void updateNotification(){
-        //put minutes and receive put extra in here to use them then have runnable activate this
-        //long timeRemaining = startTime - System.currentTimeMillis(); //put in while loop?
 
-        min--;
-        //mBuilder.setContentText("Will check if you've been distracted in: " + min + " minutes");
-
-
-
-    }
-    // change sound used at a later point
+    // change sound with a setting used at a later point
     void playSound(){
-        mPlayer = MediaPlayer.create(this, R.raw.tmpsd);
+        //mPlayer = MediaPlayer.create(this, R.raw.tmpsd); //use this for custom sound
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        MediaPlayer mPlayer = MediaPlayer.create(getApplicationContext(), notification);
         mPlayer.start();
         Log.e("Sound", "Has played");
 
