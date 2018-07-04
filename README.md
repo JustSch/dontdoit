@@ -1,5 +1,5 @@
-# dontdoit
+# Focus
 
-An app that yells at you for getting distracted
+An App That Warns The User When They Get Distraced
 
 WORK IN PROGRESS!!
