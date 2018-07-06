@@ -16,14 +16,12 @@ import android.util.Log;
 import android.widget.EditText;
 
 /**
- * Created by Justin on 8/14/2017. use https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+ * Created by Justin on 8/14/2017.
  */
 
 public class NotificationService extends Service {
-    //TODO move alarm here, Also just say time the alarm will go off until figure out how countdown works
-    //MediaPlayer mPlayer;
+    /*TODO move alarm here, Also just say time the alarm will go off until figure out how countdown works*/
 
-    //int iD;
     int min;
 
 
@@ -48,9 +46,6 @@ public class NotificationService extends Service {
         Handler handler = new Handler();
 
 
-
-        //ToDO add notifications and stopservice and stop broadcast and test mp3 also settings eventually?
-        //Need Intent and pendingIntent stuff for notification!!!!! also heads up notification when done
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(0); // closes 1st notification when displaying second
@@ -69,26 +64,23 @@ public class NotificationService extends Service {
                 .addAction(R.mipmap.ic_launcher,"No",backPendingIntent); //make drawable when you figure it out
 
 
-                // Look in set tap action section to cancel notification
-                //.setAutoCancel(true); //not sure if should be used. Look for something to cancel notification
-        notificationManager.notify(notifyID, mBuilder.build());
 
+        notificationManager.notify(notifyID, mBuilder.build());//displays notification/call as needed
 
-        //Move this
         playSound();
 
         int min = min_left;
 
-        notificationManager.notify(notifyID, mBuilder.build());  //displays notification/call as needed
-        //TODO Add heads up notification when timer is done and yell at user if they get distracted
-        //TODO Also Fix timer
+        backIntent.putExtra("Has_Notif", 1);
+        /*TODO Add heads up notification when timer is done and yell at user if they get distracted
+          TODO Also Fix timer*/
 
 
 
         return START_STICKY;
     }
 
-    // change sound with a setting used at a later point
+     /*change sound with a setting used at a later point*/
     void playSound(){
         //mPlayer = MediaPlayer.create(this, R.raw.tmpsd); //use this for custom sound
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

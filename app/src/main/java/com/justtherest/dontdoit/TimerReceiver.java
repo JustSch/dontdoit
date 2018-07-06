@@ -3,15 +3,16 @@ package com.justtherest.dontdoit;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 /**
  * Created by Justin on 8/14/2017.
  */
 
-//May decide just to use service?
+/*May decide just to use service?*/
 
-public class TimerReceiver extends BroadcastReceiver {
+public class TimerReceiver extends WakefulBroadcastReceiver{ //Not Sure if Needs To Be Wakeful
     public void onReceive(Context context, Intent intent) {
         Log.e("receiver","is started");
 

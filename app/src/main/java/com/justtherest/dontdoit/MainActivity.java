@@ -9,12 +9,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
 
+/**
+ * Created by Justin on 8/14/2017.
+ */
+
+/*
+TODO: Make Menu!!!!
+ */
 public class MainActivity extends AppCompatActivity {
     AlarmManager timerManager;
 
@@ -33,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        closeNotification();
+
+
+
 
         timerNum = (EditText) findViewById(R.id.timerNum);
 
@@ -72,16 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    // Create Timer with help from https://developer.android.com/reference/android/os/CountDownTimer.html
-    // and https://developer.android.com/reference/java/util/Timer.html and Google
-    // YOU CAN DO IT!!!!!!!!!!!!!
-    // Scream at user when they get distracted
-    // Ask if user is distracted?
-    // notifications!!!
-    //use alarm or some kind of background thing to keep app in background Delete These!!!!!
+
+    /* Scream at user when they get distracted (Maybe)
+     Ask if user is distracted?*/
 
     void startTimer() {
-        //TODO
+
         final int min = Integer.parseInt(timerNum.getText().toString());
 
         long startTime = System.currentTimeMillis()+ (min * 60000); //is actually endtime
@@ -95,27 +104,22 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("minutes_left", min);
         pIntent = PendingIntent.getBroadcast(this.getApplicationContext(),53787332,intent,0);
 
-       // Intent startIntent = new Intent(getApplicationContext(), TimerReceiver.class); //Crashes since null Context!!
 
-        //context.startService(startIntent); //now crashes here
 
         initNotification();
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,(System.currentTimeMillis()+ (min * 60000)),pIntent); //change to intent to
-                                                                                                        //updatenotification
-                                                                                            //aka after initial notification
-
+        alarmManager.set(AlarmManager.RTC_WAKEUP,(System.currentTimeMillis()+ (min * 60000)),pIntent); //Opens Notification
+                                                                                                        //That asks if User
+                                                                                                        //Is Distracted
 
         Toast.makeText(this,"This app will remind you in: " + min + " minutes",Toast.LENGTH_LONG ).show();
-
-
 
 
 
     }
 
     void initNotification() {
-        //TODO: make second notification close when timer is reset or tapaction enters app
+        /*TODO: make second notification close when timer is reset or tapaction enters app*/
 
         NotificationManager initNotifManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         int notID = 0;
@@ -124,13 +128,18 @@ public class MainActivity extends AppCompatActivity {
         .setOngoing(true) //cancel this when alarm finishes!!!
         .setPriority(Notification.PRIORITY_HIGH)
         .setDefaults(Notification.DEFAULT_SOUND)
-        .setContentTitle("Focus Timer: ")
-        .setContentText("Is Active");
+        .setContentTitle("Focus Timer Is Active: ")
+        .setContentText("Please Do Not Close App");
 
         initNotifManager.notify(notID, initBuilder.build());
-        //initNotifManager.setTimeOut();
 
 
+
+    }
+
+    void closeNotification() {
+        NotificationManager closeManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        closeManager.cancelAll();
     }
 
 
