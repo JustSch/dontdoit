@@ -10,8 +10,6 @@ import android.util.Log;
  * Created by Justin on 8/14/2017.
  */
 
-/*May decide just to use service?*/
-
 public class TimerReceiver extends WakefulBroadcastReceiver{ //Not Sure if Needs To Be Wakeful
     public void onReceive(Context context, Intent intent) {
         Log.e("receiver","is started");
@@ -29,9 +27,6 @@ public class TimerReceiver extends WakefulBroadcastReceiver{ //Not Sure if Needs
         notification_service_intent.putExtra("minute_left", min);
 
         notification_service_intent.putExtra("start time", startTime);
-
-
-
 
         context.startService(notification_service_intent);
 

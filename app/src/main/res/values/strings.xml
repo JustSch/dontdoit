@@ -11,5 +11,10 @@
     <string name="how_often_do_you_get_distracted">How often do you get distracted?</string>
     <string name="min">Min</string>
     <string name="reminding_in">Reminding In:</string>
+    <string name="title_activity_placeholder">PlaceholderActivity</string>
+    <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
 
 </resources>

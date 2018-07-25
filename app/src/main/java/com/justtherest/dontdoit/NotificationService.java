@@ -20,7 +20,9 @@ import android.widget.EditText;
  */
 
 public class NotificationService extends Service {
-    /*TODO move alarm here, Also just say time the alarm will go off until figure out how countdown works*/
+    /*TODO move alarm here, Also just say time the alarm will go off until figure out how countdown works
+    * TODO: Set An Error if no Ringtone is Set on Phone?
+    * TODO: Make it randomly generate notification id but still able to use it*/
 
     int min;
 
@@ -40,10 +42,21 @@ public class NotificationService extends Service {
         final Long startTime = intent.getExtras().getLong("start time");
 
         Intent backIntent = new Intent(this, MainActivity.class);
-        PendingIntent backPendingIntent = PendingIntent.getActivity(this, 0, backIntent, 0);
+        PendingIntent backPendingIntent = PendingIntent.getActivity(this, 0, backIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent yesBroadcastIntent = new Intent(this,YesReceiver.class);
+        Intent noBroadcastIntent = new Intent(this,NoReceiver.class);
+        Intent clearIntent = new Intent(this,ClearReceiver.class);
 
-        Handler handler = new Handler();
+        PendingIntent pendYesBroadcastIntent = PendingIntent.getBroadcast(this.getApplicationContext(),3233232,
+                yesBroadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendNoBroadCastIntent = PendingIntent.getBroadcast(this,43434434,
+                noBroadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendClearIntent = PendingIntent.getBroadcast(this,000,
+                clearIntent,0);
+
+        Handler handler = new Handler(); //Not sure if needed currently
 
 
         NotificationManager notificationManager = (NotificationManager)
@@ -54,14 +67,13 @@ public class NotificationService extends Service {
                 new NotificationCompat.Builder(this)
 
                 .setSmallIcon(R.mipmap.ic_launcher)  //change to something in drawable
-                //.setOngoing(true) //makes unremovable?
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentTitle("Are You Being Distracted?")
                 .setContentText("Should You Get Back To Work?")
-                .setContentIntent(backPendingIntent)
-                .addAction(R.mipmap.ic_launcher,"Yes",backPendingIntent)
-                .addAction(R.mipmap.ic_launcher,"No",backPendingIntent); //make drawable when you figure it out
+                .setContentIntent(pendClearIntent)//Treat pressing notification as Yes or Open Dialog Box? Clears for Now!!
+                .addAction(R.mipmap.ic_launcher,"Yes",pendYesBroadcastIntent)
+                .addAction(R.mipmap.ic_launcher,"No",pendNoBroadCastIntent); //make drawable when you figure it out
 
 
 
@@ -71,7 +83,7 @@ public class NotificationService extends Service {
 
         int min = min_left;
 
-        backIntent.putExtra("Has_Notif", 1);
+        backIntent.putExtra("Has_Notif", "1");
         /*TODO Add heads up notification when timer is done and yell at user if they get distracted
           TODO Also Fix timer*/
 
@@ -88,6 +100,7 @@ public class NotificationService extends Service {
         MediaPlayer mPlayer = MediaPlayer.create(getApplicationContext(), notification);
         mPlayer.start();
         Log.e("Sound", "Has played");
+        //mPlayer.release();//needed?
 
     }
 
